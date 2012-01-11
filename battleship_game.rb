@@ -32,12 +32,23 @@ class BattleshipGame
     @ai_1.new_game
     @ai_2.new_game
 
-    # TODO add validation of ship placement
-    @ships[@ai_1] = @ai_1.ship_positions
-    @ships[@ai_2] = @ai_2.ship_positions
+    @ships[@ai_1] = ship_positions(@ai_1)
+    @ships[@ai_2] = ship_positions(@ai_2)
 
     # Alternate who starts first
     @current_player = game_number % 2 == 0 ? @ai_1 : @ai_2
+  end
+
+  def ship_positions(ai)
+    ships = ai.ship_positions
+    ships.each do |ship|
+      raise "Invalid position #{ship} from ai #{ai.type}" unless ship.valid_placement?
+    end
+    
+    ship_cells = ships.collect { |exist_ship| exist_ship.cells }.flatten(1)
+    raise "Ships overlap for ai #{ai.type}" unless ship_cells == ship_cells.uniq
+
+    return ships
   end
 
   def game_over?

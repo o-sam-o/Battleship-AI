@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../ship'
+require File.dirname(__FILE__) + '/../battleship_game'
 
 describe Ship do
   context :hit do
@@ -70,6 +71,45 @@ describe Ship do
       ship.hit?(0, 0).should be_true
       ship.hit?(0, 1).should be_true
       ship.should be_sunk
+    end
+  end
+
+  context :valid_placement? do
+    it 'should return true if ship on board' do
+      ship = Ship.new(:patrol_boat, 0, 0, :horizontal)
+      ship.should be_valid_placement
+    end
+
+    it 'should return false if ship off the board' do
+      ship = Ship.new(:patrol_boat, 11, 11, :horizontal)
+      ship.should_not be_valid_placement
+    end
+
+    it 'should return true if ship on board on edge horizontal' do
+      ship = Ship.new(:patrol_boat, 7, 9, :horizontal)
+      ship.should be_valid_placement
+    end
+
+    it 'should return false if just over the edge horizontal' do
+      ship = Ship.new(:patrol_boat, 8, 9, :horizontal)
+      ship.should_not be_valid_placement
+    end
+
+    it 'should return false if just over the edge vertical' do
+      ship = Ship.new(:patrol_boat, 9, 8, :vertical)
+      ship.should_not be_valid_placement
+    end
+
+  end
+
+  describe :cells do
+    it 'should return all the cells a ship occupies for horizontal' do
+      ship = Ship.new(:patrol_boat, 0, 0, :horizontal)
+      ship.cells.should == [[0, 0], [1, 0]]
+    end
+    it 'should return all the cells a ship occupies for vertical' do
+      ship = Ship.new(:submarine, 0, 0, :vertical)
+      ship.cells.should == [[0, 0], [0, 1], [0, 2]]
     end
   end
 end

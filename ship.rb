@@ -13,14 +13,18 @@ class Ship
     @hits = []
   end
 
-  def ship_size
-    case @type
+  def self.ship_size(type)
+    case type
     when :aircraft_carrier then 5
     when :battleship then 4
     when :submarine, :destoryer then 3
     when :patrol_boat then 2
     else raise "Unknown ship type '#{@type}'"
     end
+  end
+
+  def ship_size
+    Ship.ship_size(@type)
   end
 
   def hit?(x, y)
@@ -44,6 +48,22 @@ class Ship
 
   def alive?
     !sunk?
+  end
+
+  def valid_placement?
+    if vertical?
+      @x < BattleshipGame::BOARD_SIZE && (@y + ship_size) < BattleshipGame::BOARD_SIZE
+    else
+      (@x + ship_size) < BattleshipGame::BOARD_SIZE && @y < BattleshipGame::BOARD_SIZE
+    end
+  end
+
+  def cells
+    if vertical?
+      (@y...(@y + ship_size)).collect { |y_cell| [@x, y_cell] }
+    else
+      (@x...(@x + ship_size)).collect { |x_cell| [x_cell, @y] }
+    end
   end
 
 private
