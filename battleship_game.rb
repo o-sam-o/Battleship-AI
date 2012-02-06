@@ -62,10 +62,12 @@ class BattleshipGame
       ship.hit?(move_x, move_y)
     end
 
+    #p "x: #{move_x} y: #{move_y} hit: #{hit_ship.to_s}"
+
     move_outcome = {
       :x => move_x, 
       :y => move_y, 
-      :hit => hit_ship.nil?,
+      :hit => hit_ship != nil,
       :sunk => hit_ship && hit_ship.sunk?,
       :ship_type => (hit_ship.type rescue nil)
     }
@@ -84,7 +86,7 @@ class BattleshipGame
     if @score[@ai_1] > @score[@ai_2]
       p "AI 1 (#{@ai_1.type}) won in #{@score[@ai_1]} games to #{@score[@ai_2]}"
     elsif @score[@ai_2] > @score[@ai_1]
-      p "AI 2 (#{@ai_1.type}) won in #{@score[@ai_2]} games to #{@score[@ai_1]}"
+      p "AI 2 (#{@ai_2.type}) won in #{@score[@ai_2]} games to #{@score[@ai_1]}"
     else
       p "Draw"
     end

@@ -66,6 +66,10 @@ class Ship
     end
   end
 
+  def to_s
+    @type
+  end
+
 private
 
   def hit_ship?(x, y)

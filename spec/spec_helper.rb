@@ -1,0 +1,6 @@
+require 'rspec'
+require File.dirname(__FILE__) + '/../ship'
+require File.dirname(__FILE__) + '/../battleship_game'
+require File.dirname(__FILE__) + '/../ai/random_ship_placement'
+require File.dirname(__FILE__) + '/../ai/basic_battleship_ai'
+require File.dirname(__FILE__) + '/../ai/random_seeker_ai'

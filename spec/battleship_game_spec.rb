@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../battleship_game'
+require File.dirname(__FILE__) + '/spec_helper'
 
 describe BattleshipGame do
 

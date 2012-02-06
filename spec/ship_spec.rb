@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../ship'
-require File.dirname(__FILE__) + '/../battleship_game'
+require File.dirname(__FILE__) + '/spec_helper'
 
 describe Ship do
   context :hit do
