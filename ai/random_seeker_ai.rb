@@ -39,12 +39,10 @@ class RandomSeekerAI
   def attack_move
       target_ship = @attack_prospects.first[0]
       current_hits = @attack_prospects.first[1]
-      p "Targeting #{target_ship}"
       if current_hits.size < 2
         hit = current_hits[0]
         return remove_invalid([above(hit), below(hit), left(hit), right(hit)])[0]
       elsif vertical_alignment?(current_hits)
-        p current_hits.inspect
         possible_moves = current_hits.collect do |hit|
           [above(hit), below(hit)]
         end.flatten(1)

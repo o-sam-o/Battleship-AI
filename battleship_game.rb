@@ -66,7 +66,12 @@ class BattleshipGame
 
   def make_move(ai)
     move_x, move_y = ai.move
-    @moves[ai] << [move_x, move_y]
+
+    if @moves[ai].include?([move_x, move_y])
+      raise "Move (#{move_x}, #{move_y}) repeated by #{ai.type}" 
+    else
+      @moves[ai] << [move_x, move_y]
+    end
 
     hit_ship = @ships[not_current_ai].detect do |ship|
       ship.hit?(move_x, move_y)
