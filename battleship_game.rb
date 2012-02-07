@@ -7,6 +7,7 @@ class BattleshipGame
     @ai_2 = ai_2
     @game_count = game_count
     @score = { ai_1 => 0, ai_2 => 0 } 
+    @moves = { ai_1 => [], ai_2 => [] } 
     @ships = {}
     @printer = BoardPrinter.new
   end
@@ -23,6 +24,8 @@ class BattleshipGame
 
       p "Game #{game_number + 1} over AI #{@current_player == @ai_1 ? 1 : 2} of type #{@current_player.type} wins"
       @score[@current_player] += 1
+      @printer.print(@ai_1, @ships[@ai_1], @moves[@ai_1], 
+                     @ai_2, @ships[@ai_2], @moves[@ai_2])
     end
 
     print_results
@@ -36,7 +39,10 @@ class BattleshipGame
     @ships[@ai_1] = ship_positions(@ai_1)
     @ships[@ai_2] = ship_positions(@ai_2)
 
-    @printer.print(@ai_1, @ships[@ai_1], @ai_2, @ships[@ai_2])
+    @moves = { @ai_1 => [], @ai_2 => [] } 
+
+    @printer.print(@ai_1, @ships[@ai_1], @moves[@ai_1], 
+                   @ai_2, @ships[@ai_2], @moves[@ai_2])
 
     # Alternate who starts first
     @current_player = game_number % 2 == 0 ? @ai_1 : @ai_2
@@ -60,6 +66,7 @@ class BattleshipGame
 
   def make_move(ai)
     move_x, move_y = ai.move
+    @moves[ai] << [move_x, move_y]
 
     hit_ship = @ships[not_current_ai].detect do |ship|
       ship.hit?(move_x, move_y)
