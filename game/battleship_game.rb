@@ -2,33 +2,31 @@ class BattleshipGame
 
   BOARD_SIZE = 10
 
-  def initialize(ai_1, ai_2, game_count)
+  attr_reader :winner
+
+  def initialize(ai_1, ai_2, game_number)
     @ai_1 = ai_1
     @ai_2 = ai_2
-    @game_count = game_count
-    @score = { ai_1 => 0, ai_2 => 0 } 
     @moves = { ai_1 => [], ai_2 => [] } 
     @ships = {}
+    @winner = nil
+    @game_number = game_number
     @printer = BoardPrinter.new
   end
 
-  def run_games
-    @game_count.times do |game_number|
-      init_game(game_number)
+  def run_game
+    init_game(@game_number)
 
-      until game_over?
-        @current_player = not_current_ai
-        p "AI #{@current_player == @ai_1 ? 1 : 2} move"
-        make_move(@current_player)
-      end
-
-      p "Game #{game_number + 1} over AI #{@current_player == @ai_1 ? 1 : 2} of type #{@current_player.type} wins"
-      @score[@current_player] += 1
-      @printer.print(@ai_1, @ships[@ai_1], @moves[@ai_1], 
-                     @ai_2, @ships[@ai_2], @moves[@ai_2])
+    until game_over?
+      @current_player = not_current_ai
+      p "AI #{@current_player == @ai_1 ? 1 : 2} move"
+      make_move(@current_player)
     end
 
-    print_results
+    p "Game #{@game_number + 1} over AI type #{@current_player.type} wins"
+    @winner = @current_player
+    @printer.print(@ai_1, @ships[@ai_1], @moves[@ai_1],
+                   @ai_2, @ships[@ai_2], @moves[@ai_2])
   end
 
   def init_game(game_number)
@@ -45,7 +43,7 @@ class BattleshipGame
                    @ai_2, @ships[@ai_2], @moves[@ai_2])
 
     # Alternate who starts first
-    @current_player = game_number % 2 == 0 ? @ai_1 : @ai_2
+    @current_player = @game_number % 2 == 0 ? @ai_1 : @ai_2
   end
 
   def ship_positions(ai)
@@ -93,18 +91,6 @@ class BattleshipGame
 
   def not_current_ai
     @current_player == @ai_1 ? @ai_2 : @ai_1
-  end
-
-  def print_results
-    p "All games played"
-    p "-" * 20
-    if @score[@ai_1] > @score[@ai_2]
-      p "AI 1 (#{@ai_1.type}) won in #{@score[@ai_1]} games to #{@score[@ai_2]}"
-    elsif @score[@ai_2] > @score[@ai_1]
-      p "AI 2 (#{@ai_2.type}) won in #{@score[@ai_2]} games to #{@score[@ai_1]}"
-    else
-      p "Draw"
-    end
   end
 
 end
