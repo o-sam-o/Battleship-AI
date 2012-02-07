@@ -8,6 +8,7 @@ class BattleshipGame
     @game_count = game_count
     @score = { ai_1 => 0, ai_2 => 0 } 
     @ships = {}
+    @printer = BoardPrinter.new
   end
 
   def run_games
@@ -34,6 +35,8 @@ class BattleshipGame
 
     @ships[@ai_1] = ship_positions(@ai_1)
     @ships[@ai_2] = ship_positions(@ai_2)
+
+    @printer.print(@ai_1, @ships[@ai_1], @ai_2, @ships[@ai_2])
 
     # Alternate who starts first
     @current_player = game_number % 2 == 0 ? @ai_1 : @ai_2
