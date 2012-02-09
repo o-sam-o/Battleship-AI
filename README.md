@@ -16,6 +16,8 @@ performance against each other.
 
 ## AI Types
 
+ - **Smart Seeker**: Looks for possible valid locations of a ship and
+   the attacks the cells with the greatest number of overlaps
  - **Random Seeker**: Randomly selects cells until it get a hit then
    switches to attack mode to sink the ship
  - **Basic**: Starts at the top and hits every cell until it reaches the
@@ -40,8 +42,7 @@ TODO document
 
 ### AI Type
 
- - Smart targeting: Only hit cells where a ship could be, attack cells
-   the decrease possible locations first
+ - When in attack mode ignore orientations where the ship couldnt fit
  - Grid based attack
  - Statistical analysis
  - Machine learning or neural network backed AI

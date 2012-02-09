@@ -240,27 +240,20 @@ describe RandomSeekerAI do
       ai = RandomSeekerAI.new
       ai.new_game
 
-      ai.send(:valid_move?, [0,0]).should be_true
-      ai.send(:valid_move?, [9,9]).should be_true
-      ai.send(:valid_move?, [-1,0]).should_not be_true
-      ai.send(:valid_move?, [10,0]).should_not be_true
-      ai.send(:valid_move?, [0,-1]).should_not be_true
-      ai.send(:valid_move?, [0,10]).should_not be_true
+      ai.send(:valid_move?, [0,0], []).should be_true
+      ai.send(:valid_move?, [9,9], []).should be_true
+      ai.send(:valid_move?, [-1,0], []).should_not be_true
+      ai.send(:valid_move?, [10,0], []).should_not be_true
+      ai.send(:valid_move?, [0,-1], []).should_not be_true
+      ai.send(:valid_move?, [0,10], []).should_not be_true
     end
 
     it 'should return false if a move has already been made' do
       ai = RandomSeekerAI.new
       ai.new_game
-      ai.move_outcome(
-        :opponents_move => false,
-        :x => 1,
-        :y => 0,
-        :sunk => false,
-        :hit => false
-      )
 
-      ai.send(:valid_move?, [1,0]).should_not be_true
-      ai.send(:valid_move?, [0,0]).should be_true
+      ai.send(:valid_move?, [1,0], [[1,0]]).should_not be_true
+      ai.send(:valid_move?, [0,0], [[1,0]]).should be_true
     end
   end
 end
