@@ -8,7 +8,7 @@ class AIComparator
   end
 
   def compare_ais
-    match_ups = @competitors.product(@competitors)
+    match_ups = @competitors.repeated_combination(2).to_a
     match_ups.delete_if { |comp_1, comp_2| comp_1 == comp_2 }
 
     @games_to_play.times do |game_number|
