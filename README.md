@@ -1,6 +1,7 @@
 # Battleship AI
 
 ## Overview
+
 After playing battleship on the iPad with my son, I started wondering
 about strategy and ways to ensure a win.  This project is the
 implementation of various strategies and a system for ranking their
