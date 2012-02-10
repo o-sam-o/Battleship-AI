@@ -7,11 +7,13 @@ require File.dirname(__FILE__) + '/ai/random_ship_placement'
 require File.dirname(__FILE__) + '/ai/ai_helpers'
 require File.dirname(__FILE__) + '/ai/basic_battleship_ai'
 require File.dirname(__FILE__) + '/ai/random_seeker_ai'
+require File.dirname(__FILE__) + '/ai/random_seeker_ai_old'
 require File.dirname(__FILE__) + '/ai/random_ai'
 require File.dirname(__FILE__) + '/ai/smart_seeker_ai'
 
 ais = []
 ais << RandomSeekerAI.new
+ais << RandomSeekerAIOld.new
 ais << RandomAI.new
 ais << BasicBattshipAI.new
 ais << SmartSeekerAI.new

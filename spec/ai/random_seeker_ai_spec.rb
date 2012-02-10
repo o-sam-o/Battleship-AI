@@ -135,7 +135,33 @@ describe RandomSeekerAI do
       [[5,4], [5,7]].should include(ai.move)
     end
   end
-  it 'should not target an axis if there is not enough room for a ship'
+
+  it 'should not target an axis if there is not enough room for a ship' do
+    # Run test multiple times to account for random access selection
+    4.times do
+      ai = RandomSeekerAI.new
+      ai.new_game
+
+      ai.move_outcome(
+        :opponents_move => false,
+        :x => 2,
+        :y => 0,
+        :sunk => false,
+        :hit => false
+      )
+
+      ai.move_outcome(
+        :opponents_move => false,
+        :x => 0,
+        :y => 0,
+        :sunk => false,
+        :ship_type => :submarine,
+        :hit => true
+      )
+
+      ai.move.should == [0, 1]
+    end
+  end
 
   it 'should return to seek mode after a ship has been sunk' do
       ai = RandomSeekerAI.new
