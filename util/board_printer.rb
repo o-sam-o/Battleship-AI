@@ -10,7 +10,7 @@ class BoardPrinter
   def print(ai_1, ai_1_ships, ai_1_moves, ai_2, ai_2_ships, ai_2_moves)
     table = Terminal::Table.new do |t| 
       # ascicolor and terminal-table dont seem to play together well so we have to fix the width
-      t.style = {:width => 97}
+      t.style = {:width => 92}
       t << ["AI 1 (#{ai_1.type}, #{ai_1.placement_type})", "AI 2 (#{ai_2.type}, #{ai_2.placement_type})"]
       t << :separator
       t << [ships_table(ai_1_ships, ai_2_moves), ships_table(ai_2_ships, ai_1_moves)]
@@ -24,8 +24,11 @@ private
     ship_cells = {}
     ships.each do |ship|
       ship.cells.each do |cell|
-        ship_cells[cell] = ship.type.to_s[0].upcase.bold
-        ship_cells[cell] = ship_cells[cell].red if moves.include?(cell)
+        if moves.include?(cell)
+          ship_cells[cell] = ship.type.to_s[0].upcase.red
+        else
+          ship_cells[cell] = ship.type.to_s[0].upcase.white
+        end
       end
     end
 
@@ -34,10 +37,10 @@ private
     end
 
     table = Terminal::Table.new do |t| 
-      t << ['', *(0...BattleshipGame::BOARD_SIZE).to_a]
+      t << ['-'.yellow, *(0...BattleshipGame::BOARD_SIZE).collect { |x| x.to_s.yellow }]
       (0...BattleshipGame::BOARD_SIZE).each do |y|
         t << :separator
-        t << [y, *(0...BattleshipGame::BOARD_SIZE).collect { |x| ship_cells[[x, y]] || '' }]
+        t << [y.to_s.yellow, *(0...BattleshipGame::BOARD_SIZE).collect { |x| ship_cells[[x, y]] || '' }]
       end
     end
     return table
