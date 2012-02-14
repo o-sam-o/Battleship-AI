@@ -42,15 +42,12 @@ TODO document
 
 ### AI Type
 
- - When in attack mode ignore orientations where the ship couldnt fit
  - Grid based attack
  - Statistical analysis
  - Machine learning or neural network backed AI
 
 ### Placement Strategies
 
- - Random horizontal only
- - Random vertical only
  - Random but never touching
  - Random edges only
  - Random clumped together
