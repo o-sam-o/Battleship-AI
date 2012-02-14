@@ -19,7 +19,7 @@ class BattleshipGame
 
     until game_over?
       @current_player = not_current_ai
-      p "AI #{@current_player == @ai_1 ? 1 : 2} move"
+      #p "AI #{@current_player == @ai_1 ? 1 : 2} move"
       make_move(@current_player)
     end
 
@@ -39,8 +39,8 @@ class BattleshipGame
 
     @moves = { @ai_1 => [], @ai_2 => [] } 
 
-    @printer.print(@ai_1, @ships[@ai_1], @moves[@ai_1], 
-                   @ai_2, @ships[@ai_2], @moves[@ai_2])
+    #@printer.print(@ai_1, @ships[@ai_1], @moves[@ai_1], 
+    #               @ai_2, @ships[@ai_2], @moves[@ai_2])
 
     # Alternate who starts first
     @current_player = @game_number % 2 == 0 ? @ai_1 : @ai_2

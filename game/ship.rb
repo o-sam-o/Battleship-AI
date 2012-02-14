@@ -30,8 +30,8 @@ class Ship
   def hit?(x, y)
     if hit_ship?(x, y)
       @hits << [x, y]
-      p "Hit #{@hits.size} for #{@type}"
-      p "#{@type} sunk" if sunk?
+      #p "Hit #{@hits.size} for #{@type}"
+      #p "#{@type} sunk" if sunk?
       return true
     else
       return false
