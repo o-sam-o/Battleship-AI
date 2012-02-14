@@ -36,9 +36,9 @@ private
   def print_results
     @competitors.sort!
     table = Terminal::Table.new do |t|
-      t.headings = ['AI Type', 'Rating', 'Wins', 'Loses']
+      t.headings = ['AI Type', 'Placement', 'Rating', 'Wins', 'Loses']
       @competitors.each do |comp|
-        t << [comp.name, comp.rating, comp.wins, comp.loses]
+        t << [comp.name, comp.placement_type, comp.rating, comp.wins, comp.loses]
       end
     end
     p table

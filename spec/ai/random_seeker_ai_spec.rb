@@ -4,7 +4,7 @@ describe RandomSeekerAI do
   
   it 'should aim for squares near a hit after one is recorded' do
     4.times do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       # Setup hit
@@ -30,7 +30,7 @@ describe RandomSeekerAI do
                      when 3 then [5, 6]
                      end
 
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       # Setup miss
@@ -59,7 +59,7 @@ describe RandomSeekerAI do
   end
 
   it 'should ignore the edge of the board when a hit is recorded' do
-    ai = RandomSeekerAI.new
+    ai = RandomSeekerAI.new(RandomShipPlacement.new)
     ai.new_game
 
     # Setup miss
@@ -86,7 +86,7 @@ describe RandomSeekerAI do
 
   context 'should target on the same axis if two hits are recorded on the same ship' do
     it 'for horizontal alignment' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       # Setup hits
@@ -111,7 +111,7 @@ describe RandomSeekerAI do
     end
 
     it 'for vertical alignment' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       # Setup hits
@@ -139,7 +139,7 @@ describe RandomSeekerAI do
   it 'should not target an axis if there is not enough room for a ship' do
     # Run test multiple times to account for random access selection
     4.times do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       ai.move_outcome(
@@ -164,7 +164,7 @@ describe RandomSeekerAI do
   end
 
   it 'should return to seek mode after a ship has been sunk' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       ai.instance_eval { @mode }.should == :random
@@ -193,7 +193,7 @@ describe RandomSeekerAI do
   end
 
   it 'should be able to handle hitting another ship while in attack mode' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       ai.move_outcome(
@@ -218,7 +218,7 @@ describe RandomSeekerAI do
   end
 
   it 'if another ship is found while in attack mode it should attack the second ship once the first is sunk' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
     ai.move_outcome(
@@ -263,7 +263,7 @@ describe RandomSeekerAI do
 
   context :valid_move? do
     it 'should only return true if move is within the board bounds' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       ai.send(:valid_move?, [0,0], []).should be_true
@@ -275,7 +275,7 @@ describe RandomSeekerAI do
     end
 
     it 'should return false if a move has already been made' do
-      ai = RandomSeekerAI.new
+      ai = RandomSeekerAI.new(RandomShipPlacement.new)
       ai.new_game
 
       ai.send(:valid_move?, [1,0], [[1,0]]).should_not be_true

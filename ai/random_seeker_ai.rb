@@ -1,8 +1,11 @@
 class RandomSeekerAI 
- 
-  include RandomShipPlacement
+
   include AIHelpers
   include AttackHelper
+
+  def initialize(placement)
+    @placement = placement
+  end
 
   def new_game
     @moves = []
@@ -11,14 +14,7 @@ class RandomSeekerAI
   end
 
   def ship_positions
-    ships = []
-    ships << random_ship_location(:aircraft_carrier, ships)
-    ships << random_ship_location(:battleship, ships)
-    ships << random_ship_location(:destoryer, ships)
-    ships << random_ship_location(:submarine, ships)
-    ships << random_ship_location(:patrol_boat, ships)
-
-    return ships
+    @placement.ship_positions
   end
 
   def move
@@ -56,6 +52,10 @@ class RandomSeekerAI
 
   def type
     "Random Seeker"
+  end
+
+  def placement_type
+    @placement.type
   end
 
 private

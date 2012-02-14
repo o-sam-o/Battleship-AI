@@ -1,5 +1,8 @@
 class RandomAI
-  include RandomShipPlacement
+
+  def initialize(placement)
+    @placement = placement
+  end
 
   def new_game
     @moves = (0...BattleshipGame::BOARD_SIZE).to_a.product((0...BattleshipGame::BOARD_SIZE).to_a)
@@ -7,14 +10,7 @@ class RandomAI
   end
 
   def ship_positions
-    ships = []
-    ships << random_ship_location(:aircraft_carrier, ships)
-    ships << random_ship_location(:battleship, ships)
-    ships << random_ship_location(:destoryer, ships)
-    ships << random_ship_location(:submarine, ships)
-    ships << random_ship_location(:patrol_boat, ships)
-
-    return ships
+    @placement.ship_positions
   end
 
   def move
@@ -27,6 +23,10 @@ class RandomAI
 
   def type
     "Random"
+  end
+
+  def placement_type
+    @placement.type
   end
 end
 

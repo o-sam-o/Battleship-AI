@@ -1,4 +1,21 @@
-module RandomShipPlacement
+class RandomShipPlacement
+
+   def ship_positions
+    ships = []
+    ships << random_ship_location(:aircraft_carrier, ships)
+    ships << random_ship_location(:battleship, ships)
+    ships << random_ship_location(:destoryer, ships)
+    ships << random_ship_location(:submarine, ships)
+    ships << random_ship_location(:patrol_boat, ships)
+
+    return ships
+  end 
+
+  def type
+    "Random"
+  end
+
+private
 
   def random_ship_location(ship_type, ships)
     orientation = random_orientation

@@ -1,20 +1,15 @@
 class BasicBattshipAI 
  
-  include RandomShipPlacement
-
-  def new_game
-    @moves = []
+  def initialize(placement)
+    @placement = placement
   end
 
   def ship_positions
-    ships = []
-    ships << random_ship_location(:aircraft_carrier, ships)
-    ships << random_ship_location(:battleship, ships)
-    ships << random_ship_location(:destoryer, ships)
-    ships << random_ship_location(:submarine, ships)
-    ships << random_ship_location(:patrol_boat, ships)
+    @placement.ship_positions
+  end
 
-    return ships
+  def new_game
+    @moves = []
   end
 
   def move
@@ -41,4 +36,7 @@ class BasicBattshipAI
     "Basic"
   end
 
+  def placement_type
+    @placement.type
+  end
 end

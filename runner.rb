@@ -12,12 +12,17 @@ require File.dirname(__FILE__) + '/ai/random_seeker_ai_old'
 require File.dirname(__FILE__) + '/ai/random_ai'
 require File.dirname(__FILE__) + '/ai/smart_seeker_ai'
 
+placements = []
+placements << RandomShipPlacement.new
+
 ais = []
-ais << RandomSeekerAI.new
-ais << RandomSeekerAIOld.new
-ais << RandomAI.new
-ais << BasicBattshipAI.new
-ais << SmartSeekerAI.new
+placements.each do |placement|
+  ais << RandomSeekerAI.new(placement)
+  ais << RandomSeekerAIOld.new(placement)
+  ais << RandomAI.new(placement)
+  ais << BasicBattshipAI.new(placement)
+  ais << SmartSeekerAI.new(placement)
+end
 
 comparator = AIComparator.new(ais, 10)
 comparator.compare_ais

@@ -11,7 +11,7 @@ class BoardPrinter
     table = Terminal::Table.new do |t| 
       # ascicolor and terminal-table dont seem to play together well so we have to fix the width
       t.style = {:width => 97}
-      t << ["AI 1 (#{ai_1.type})", "AI 2 (#{ai_2.type})"]
+      t << ["AI 1 (#{ai_1.type}, #{ai_1.placement_type})", "AI 2 (#{ai_2.type}, #{ai_2.placement_type})"]
       t << :separator
       t << [ships_table(ai_1_ships, ai_2_moves), ships_table(ai_2_ships, ai_1_moves)]
     end

@@ -21,6 +21,10 @@ class AICompetitor
     @ai.type
   end
 
+  def placement_type
+    @ai.placement_type
+  end
+
   def rating
     @elo_player.rating
   end
