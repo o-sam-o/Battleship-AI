@@ -2,6 +2,7 @@ class SmartSeekerAI
 
   include RandomShipPlacement
   include AIHelpers
+  include AttackHelper
 
   def new_game
     @moves = []
@@ -25,7 +26,7 @@ class SmartSeekerAI
     if @mode == :seek
       return seek_move
     else
-      return attack_move
+      return attack_move(@attack_prospects, @moves)
     end
   end
  
@@ -56,25 +57,6 @@ class SmartSeekerAI
     end
 
     return target_cells.sample
-  end 
-
-    def attack_move
-      target_ship = @attack_prospects.first[0]
-      current_hits = @attack_prospects.first[1]
-      if current_hits.size < 2
-        hit = current_hits[0]
-        return remove_invalid([above(hit), below(hit), left(hit), right(hit)], @moves).sample
-      elsif vertical_alignment?(current_hits)
-        possible_moves = current_hits.collect do |hit|
-          [above(hit), below(hit)]
-        end.flatten(1)
-        return remove_invalid(possible_moves, @moves).sample
-      else
-        possible_moves = current_hits.collect do |hit|
-          [left(hit), right(hit)]
-        end.flatten(1)
-        return remove_invalid(possible_moves, @moves).sample
-      end
   end
 
   def move_outcome(outcome)
