@@ -20,7 +20,11 @@ module AttackHelper
         end
       end
 
-      return remove_invalid(target_cells, moves).sample
+      return select_cell(remove_invalid(target_cells, moves))
+  end
+
+  def select_cell(cells)
+    cells.sample
   end
 
   #TODO refactor

@@ -25,7 +25,7 @@ class SmartSeekerAI
       return attack_move(@attack_prospects, @moves)
     end
   end
- 
+
   def seek_move
     target_ship = @targets.first
 
@@ -52,7 +52,7 @@ class SmartSeekerAI
       end
     end
 
-    return target_cells.sample
+    return select_cell(target_cells)
   end
 
   def move_outcome(outcome)

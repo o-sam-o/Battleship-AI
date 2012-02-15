@@ -42,7 +42,6 @@ TODO document
 
 ### AI Type
 
- - Grid based attack
  - Statistical analysis
  - Machine learning or neural network backed AI
 
